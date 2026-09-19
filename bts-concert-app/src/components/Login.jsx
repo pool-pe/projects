@@ -349,7 +349,7 @@ export function Login() {
                       <input
                         type="checkbox"
                         defaultChecked
-                        className="size-4 rounded border-brand-300 text-brand-600 focus:ring-brand-500 dark:border-white/20 dark:bg-white/10"
+                        className="size-4 rounded accent-brand-600"
                       />
                       Recordarme
                     </label>
