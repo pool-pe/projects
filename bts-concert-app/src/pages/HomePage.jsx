@@ -95,7 +95,7 @@ export function HomePage() {
       {/* 6. Cierre */}
       <section className="overflow-hidden rounded-card border border-brand-200 bg-gradient-to-br from-brand-100 to-accent-400/20 p-5 text-center dark:border-brand-400/20 dark:from-brand-500/10 dark:to-accent-500/10">
         <p className="font-display text-lg font-extrabold text-ink-900 dark:text-white">
-          ¡Nos vemos en el Estadio Nacional, {user?.name ?? 'ARMY'}! 💜
+          ¡Nos vemos en el {event?.venue ?? 'concierto'}, {user?.name ?? 'ARMY'}! 💜
         </p>
         <p className="mt-1 text-sm text-ink-700/70 dark:text-ink-100/60">
           Revisa tu puerta de ingreso y llega con anticipación.

@@ -9,6 +9,7 @@ import HomePage from './pages/HomePage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 import ProfilePage from './pages/ProfilePage.jsx'
+import TicketGroupPage from './pages/TicketGroupPage.jsx'
 import TicketsPage from './pages/TicketsPage.jsx'
 
 /**
@@ -40,6 +41,7 @@ export function App() {
               >
                 <Route index element={<HomePage />} />
                 <Route path="/tickets" element={<TicketsPage />} />
+                <Route path="/tickets/:eventId" element={<TicketGroupPage />} />
                 <Route path="/perfil" element={<ProfilePage />} />
               </Route>
 

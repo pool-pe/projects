@@ -8,30 +8,36 @@
  * Todos los datos son ficticios y sirven solo para la demo.
  */
 
-/** Fecha/hora oficial del show en hora de Lima (UTC-5). */
-export const EVENT_DATE_ISO = '2026-11-14T20:00:00-05:00'
+/** Fecha/hora de la función a la que asiste el usuario (hora de Lima, UTC-5). */
+export const EVENT_DATE_ISO = '2026-10-07T20:00:00-05:00'
 
 /** Apertura de puertas (2 horas antes del show). */
-export const DOORS_OPEN_ISO = '2026-11-14T18:00:00-05:00'
+export const DOORS_OPEN_ISO = '2026-10-07T18:00:00-05:00'
 
 export const FEATURED_EVENT = {
-  id: 'evt-bts-lima-2026',
-  tour: 'BTS World Tour 2026',
-  title: 'BTS World Tour 2026',
-  subtitle: '“Permission to Dance On Stage” · Lima',
+  id: 'evt-bts-arirang-lima-2026',
+  tour: "BTS WORLD TOUR 'ARIRANG'",
+  title: "BTS WORLD TOUR 'ARIRANG'",
+  subtitle: 'Lima · Estadio San Marcos',
   city: 'Lima, Perú',
-  venue: 'Estadio Nacional',
-  venueAddress: 'Jr. José Díaz s/n, Cercado de Lima',
+  venue: 'Estadio San Marcos',
+  venueAddress: 'Av. Venezuela cdra. 34, Ciudad Universitaria',
   dateISO: EVENT_DATE_ISO,
   doorsOpenISO: DOORS_OPEN_ISO,
   showTimeLabel: '20:00 h',
   doorsLabel: '18:00 h',
-  capacity: 45000,
+  capacity: 40000,
+  poster: '/posters/bts-arirang.svg',
   lineup: ['RM', 'Jin', 'SUGA', 'j-hope', 'Jimin', 'V', 'Jung Kook'],
-  heroTagline: 'La séptima parada del tour mundial aterriza en Sudamérica',
+  heroTagline: 'El tour mundial aterriza en Lima por tres noches',
   status: 'SOLD_OUT',
-  // Degradado del banner (clases de Tailwind, se inyectan en el componente)
-  gradient: 'from-brand-600 via-brand-500 to-accent-500',
+  /** Las tres funciones del afiche oficial. */
+  tourDates: [
+    { iso: '2026-10-07T20:00:00-05:00', label: '07.10.2026', weekday: 'MIE' },
+    { iso: '2026-10-09T20:00:00-05:00', label: '09.10.2026', weekday: 'VIE' },
+    { iso: '2026-10-10T20:00:00-05:00', label: '10.10.2026', weekday: 'SÁB' },
+  ],
+  gradient: 'from-brand-700 via-brand-500 to-accent-500',
 }
 
 export const DEMO_USER = {
@@ -57,11 +63,22 @@ export const DEMO_USER = {
   },
 }
 
+/** Datos comunes a las 4 entradas de la misma compra. */
+const COMMON = {
+  eventId: 'evt-bts-arirang-lima-2026',
+  userId: 'usr-001',
+  status: 'CONFIRMADO',
+  currency: 'PEN',
+  purchaseDate: '2026-03-02T10:24:00-05:00',
+  orderId: 'ORD-93412-LIM',
+  paymentMethod: 'Visa •••• 4821',
+  transferable: true,
+}
+
 export const TICKETS = [
   {
-    id: 'TCK-2026-LIM-0418',
-    eventId: 'evt-bts-lima-2026',
-    userId: 'usr-001',
+    ...COMMON,
+    id: 'TCK-2026-SMC-0418',
     holderName: 'Jean Pierre Mescua',
     zone: 'VIP · Campo A',
     zoneShort: 'Campo A',
@@ -69,13 +86,7 @@ export const TICKETS = [
     sector: 'Bloque A2',
     seat: 'Zona de pie (sin numerar)',
     row: '—',
-    status: 'CONFIRMADO',
     price: 890,
-    currency: 'PEN',
-    purchaseDate: '2026-03-02T10:24:00-05:00',
-    orderId: 'ORD-93412-LIM',
-    paymentMethod: 'Visa •••• 4821',
-    transferable: true,
     includes: [
       'Acceso preferente al Campo A',
       'Merch pack oficial ARMY',
@@ -84,34 +95,53 @@ export const TICKETS = [
     ],
   },
   {
-    id: 'TCK-2026-LIM-0419',
-    eventId: 'evt-bts-lima-2026',
-    userId: 'usr-001',
+    ...COMMON,
+    id: 'TCK-2026-SMC-0419',
     holderName: 'Ana Lucía Rojas',
+    zone: 'Campo B',
+    zoneShort: 'Campo B',
+    gate: 'Puerta 6 — Este',
+    sector: 'Bloque B1',
+    seat: 'Zona de pie (sin numerar)',
+    row: '—',
+    price: 640,
+    includes: ['Acceso al Campo B', 'Ingreso por Puerta 6'],
+  },
+  {
+    ...COMMON,
+    id: 'TCK-2026-SMC-0420',
+    holderName: 'Diego Mescua',
+    zone: 'Tribuna Oriente',
+    zoneShort: 'Oriente',
+    gate: 'Puerta 9 — Sur',
+    sector: 'Sector OR-08',
+    seat: 'Asiento 22',
+    row: 'Fila 5',
+    price: 420,
+    includes: ['Asiento numerado', 'Acceso por Puerta 9'],
+  },
+  {
+    ...COMMON,
+    id: 'TCK-2026-SMC-0421',
+    holderName: 'Camila Vera',
     zone: 'Tribuna Occidente',
     zoneShort: 'Occidente',
-    gate: 'Puerta 9 — Oeste',
+    gate: 'Puerta 11 — Oeste',
     sector: 'Sector OC-12',
     seat: 'Asiento 18',
     row: 'Fila 7',
-    status: 'CONFIRMADO',
     price: 520,
-    currency: 'PEN',
-    purchaseDate: '2026-03-02T10:24:00-05:00',
-    orderId: 'ORD-93412-LIM',
-    paymentMethod: 'Visa •••• 4821',
-    transferable: true,
-    includes: ['Asiento numerado', 'Acceso por Puerta 9'],
+    includes: ['Asiento numerado', 'Acceso por Puerta 11'],
   },
 ]
 
 export const PURCHASES = [
   {
     id: 'ORD-93412-LIM',
-    concept: 'BTS World Tour 2026 — Lima',
-    detail: '2 entradas (VIP Campo A + Tribuna Occidente)',
+    concept: "BTS WORLD TOUR 'ARIRANG' — Lima",
+    detail: '4 entradas (Campo A VIP, Campo B, Oriente y Occidente)',
     date: '2026-03-02T10:24:00-05:00',
-    amount: 1410,
+    amount: 2470,
     currency: 'PEN',
     status: 'PAGADO',
     method: 'Visa •••• 4821',
@@ -145,12 +175,12 @@ export const CONCERT_GUIDE = [
     icon: 'bus',
     title: 'Cómo llegar',
     accent: 'brand',
-    summary: 'Estadio Nacional — Jr. José Díaz s/n, Cercado de Lima',
+    summary: 'Estadio San Marcos — Av. Venezuela cdra. 34',
     items: [
-      'Metropolitano: bajar en la estación “Estadio Nacional” (5 min a pie a la Puerta 4).',
-      'Metro Línea 1: estación Grau + transbordo al Metropolitano.',
-      'Apps de taxi: pide el punto de encuentro en el Parque de la Reserva, no en la puerta.',
-      'No hay estacionamiento público en el estadio. Llega con 2 h de anticipación.',
+      'El estadio está dentro de la Ciudad Universitaria de la UNMSM (Av. Venezuela con Av. Universitaria).',
+      'Corredor Azul y buses de Av. Venezuela dejan a 10 min a pie de la Puerta 4.',
+      'Metro Línea 1: estación Grau y luego taxi o corredor hacia Av. Venezuela.',
+      'Apps de taxi: usa la Puerta 1 de la Ciudad Universitaria como punto de encuentro.',
     ],
   },
   {
@@ -158,7 +188,7 @@ export const CONCERT_GUIDE = [
     icon: 'clock',
     title: 'Horarios del día',
     accent: 'accent',
-    summary: 'Sábado 14 de noviembre de 2026',
+    summary: 'Miércoles 7 de octubre de 2026',
     items: [
       '15:00 h — Apertura de stands de merchandising oficial.',
       '17:00 h — Ingreso anticipado exclusivo VIP (Campo A).',
@@ -202,7 +232,7 @@ export const CONCERT_GUIDE = [
       'Lleva tu DNI o carné de extranjería: se valida junto con el QR.',
       'Descarga tu entrada antes de salir; la señal en el estadio se satura.',
       'Sincroniza tu ARMY Bomb en la app oficial al ingresar al campo.',
-      'Noviembre en Lima es fresco de noche: lleva una casaca ligera.',
+      'Octubre en Lima es húmedo de noche: lleva una casaca ligera.',
     ],
   },
 ]
@@ -211,15 +241,15 @@ export const CONCERT_GUIDE = [
 export const NOTIFICATIONS = [
   {
     id: 'ntf-1',
-    title: '¡Tu entrada ya está activa!',
-    body: 'El QR de acceso para el Campo A se habilitó correctamente.',
+    title: '¡Tus entradas ya están activas!',
+    body: 'Los 4 códigos QR de acceso se habilitaron correctamente.',
     date: '2026-09-18T09:12:00-05:00',
     unread: true,
     type: 'ticket',
   },
   {
     id: 'ntf-2',
-    title: 'Nuevo mapa del Estadio Nacional',
+    title: 'Nuevo mapa del Estadio San Marcos',
     body: 'Revisa tu puerta de ingreso y los puntos de hidratación.',
     date: '2026-09-15T17:45:00-05:00',
     unread: true,
@@ -239,7 +269,7 @@ export const NOTIFICATIONS = [
 export function buildMockBootstrap(user = DEMO_USER) {
   return {
     event: FEATURED_EVENT,
-    tickets: TICKETS.map((t) => ({ ...t, holderName: t.holderName })),
+    tickets: TICKETS.map((t) => ({ ...t })),
     purchases: PURCHASES,
     guide: CONCERT_GUIDE,
     notifications: NOTIFICATIONS,

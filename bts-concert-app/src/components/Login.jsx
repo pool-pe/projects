@@ -185,12 +185,12 @@ export function Login() {
 
           <h1 className="mt-6 font-display text-5xl font-extrabold leading-[1.05] tracking-tight text-ink-900 dark:text-white">
             {FEATURED_EVENT.tour}
-            <span className="mt-2 block text-gradient">Lima, Perú</span>
+            <span className="mt-2 block text-gradient">{FEATURED_EVENT.city}</span>
           </h1>
 
           <p className="mt-5 max-w-md text-lg leading-relaxed text-ink-700/80 dark:text-ink-100/70">
-            Guarda tu entrada digital, revisa tu puerta de ingreso y llega listo al Estadio
-            Nacional. Todo en un solo lugar.
+            Guarda tu entrada digital, revisa tu puerta de ingreso y llega listo al{' '}
+            {FEATURED_EVENT.venue}. Todo en un solo lugar.
           </p>
 
           <ul className="mt-8 space-y-4">
@@ -223,7 +223,7 @@ export function Login() {
                 ARMY Pass
               </h1>
               <p className="mt-1 text-sm text-ink-700/70 dark:text-ink-100/60">
-                BTS World Tour 2026 · Lima, Perú
+                {FEATURED_EVENT.tour} · {FEATURED_EVENT.city}
               </p>
             </div>
 

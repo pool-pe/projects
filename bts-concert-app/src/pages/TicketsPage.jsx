@@ -1,84 +1,87 @@
-import { useState } from 'react'
-import { History, Ticket as TicketIcon } from 'lucide-react'
+import { useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { TicketX } from 'lucide-react'
 import { useData } from '../context/DataContext.jsx'
-import { SectionTitle } from '../components/ui/Card.jsx'
-import Badge from '../components/ui/Badge.jsx'
-import TicketCard from '../components/TicketCard.jsx'
-import PurchaseHistory from '../components/PurchaseHistory.jsx'
-import { cn } from '../lib/format.js'
+import MyTicketsHeader from '../components/MyTicketsHeader.jsx'
+import TicketListItem, {
+  formatMonthLabel,
+  groupTickets,
+} from '../components/TicketListItem.jsx'
 
-/** Listado completo de entradas + historial de compras. */
+/**
+ * Pantalla "Mis Entradas".
+ *
+ * Réplica de la app original: cabecera con título e iconos, control segmentado
+ * Próximos/Pasados, encabezado de mes y la fila del evento con su afiche.
+ */
 export function TicketsPage() {
-  const { tickets, purchases, event } = useData()
-  const [tab, setTab] = useState('activas')
+  const { tickets, event } = useData()
+  const navigate = useNavigate()
+  const [tab, setTab] = useState('proximos')
 
-  const tabs = [
-    { id: 'activas', label: 'Entradas', count: tickets.length, icon: TicketIcon },
-    { id: 'historial', label: 'Historial', count: purchases.length, icon: History },
-  ]
+  const groups = useMemo(() => {
+    if (!event) return []
+    const now = Date.now()
+    return groupTickets(tickets, event).filter((group) => {
+      const isPast = new Date(group.dateISO).getTime() < now
+      return tab === 'pasados' ? isPast : !isPast
+    })
+  }, [tickets, event, tab])
+
+  // Encabezados de mes: "Octubre 2026"
+  const months = useMemo(() => {
+    const map = new Map()
+    groups.forEach((group) => {
+      const { month, year } = formatMonthLabel(group.dateISO)
+      const key = `${month} ${year}`
+      if (!map.has(key)) map.set(key, { month, year, groups: [] })
+      map.get(key).groups.push(group)
+    })
+    return [...map.values()]
+  }, [groups])
 
   return (
-    <div className="space-y-6">
-      <header>
-        <h1 className="font-display text-2xl font-extrabold text-ink-900 dark:text-white">
-          Mis Tickets
-        </h1>
-        <p className="mt-1 text-sm text-ink-700/70 dark:text-ink-100/60">
-          Entradas digitales asociadas a tu cuenta.
-        </p>
-      </header>
+    <div className="min-h-dvh bg-app-bg font-native">
+      <MyTicketsHeader tab={tab} onTabChange={setTab} />
 
-      {/* Pestañas */}
-      <div className="grid grid-cols-2 gap-1 rounded-2xl bg-brand-100/70 p-1 dark:bg-white/5">
-        {tabs.map(({ id, label, count, icon: Icon }) => (
-          <button
-            key={id}
-            type="button"
-            onClick={() => setTab(id)}
-            aria-pressed={tab === id}
-            className={cn(
-              'flex items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-semibold transition-all duration-300',
-              tab === id
-                ? 'bg-white text-brand-700 shadow-sm dark:bg-ink-800 dark:text-white'
-                : 'text-ink-700/60 hover:text-ink-900 dark:text-ink-100/50 dark:hover:text-white',
-            )}
-          >
-            <Icon className="size-4" aria-hidden="true" />
-            {label}
-            <span className="rounded-full bg-brand-500/15 px-1.5 text-[11px] font-bold text-brand-700 dark:text-brand-200">
-              {count}
-            </span>
-          </button>
-        ))}
+      <div className="px-4 pb-28">
+        {months.length === 0 ? (
+          <EmptyState tab={tab} />
+        ) : (
+          months.map(({ month, year, groups: monthGroups }) => (
+            <section key={`${month}-${year}`}>
+              <h2 className="pt-[31px] text-[18px] leading-[24px]">
+                <span className="font-bold text-white">{month}</span>{' '}
+                <span className="font-normal text-app-soft">{year}</span>
+              </h2>
+
+              <div className="mt-[10px] space-y-[10px]">
+                {monthGroups.map((group) => (
+                  <TicketListItem
+                    key={group.key}
+                    group={group}
+                    onClick={() => navigate(`/tickets/${group.event.id}`)}
+                  />
+                ))}
+              </div>
+            </section>
+          ))
+        )}
       </div>
+    </div>
+  )
+}
 
-      {tab === 'activas' ? (
-        <section className="space-y-5">
-          {tickets.length === 0 && (
-            <p className="rounded-card border border-dashed border-brand-200 px-4 py-10 text-center text-sm text-ink-700/60 dark:border-white/10 dark:text-ink-100/50">
-              No tienes entradas activas.
-            </p>
-          )}
-
-          {tickets.map((ticket, index) => (
-            <div key={ticket.id}>
-              {index > 0 && (
-                <div className="mb-4 flex items-center gap-3">
-                  <span className="h-px flex-1 bg-brand-100 dark:bg-white/10" />
-                  <Badge tone="neutral">Entrada {index + 1}</Badge>
-                  <span className="h-px flex-1 bg-brand-100 dark:bg-white/10" />
-                </div>
-              )}
-              <TicketCard ticket={ticket} event={event} />
-            </div>
-          ))}
-        </section>
-      ) : (
-        <section>
-          <SectionTitle icon={History}>Historial de compras</SectionTitle>
-          <PurchaseHistory purchases={purchases} />
-        </section>
-      )}
+function EmptyState({ tab }) {
+  return (
+    <div className="flex flex-col items-center justify-center pt-24 text-center">
+      <TicketX className="size-10 text-app-icon/60" aria-hidden="true" />
+      <p className="mt-4 text-[15px] font-semibold text-white">
+        {tab === 'pasados' ? 'No tienes entradas pasadas' : 'No tienes entradas próximas'}
+      </p>
+      <p className="mt-1 text-[13px] text-app-muted">
+        Cuando compres una, aparecerá aquí.
+      </p>
     </div>
   )
 }

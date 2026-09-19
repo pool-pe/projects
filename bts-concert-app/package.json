@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Clon funcional de app de conciertos (BTS World Tour 2026 - Lima) con React + Vite + Tailwind CSS y API mock en Express.",
+  "description": "Clon funcional de app de conciertos (BTS WORLD TOUR 'ARIRANG' - Lima, Estadio San Marcos) con React + Vite + Tailwind CSS y API mock en Express.",
   "scripts": {
     "dev": "vite",
     "dev:host": "vite --host",
@@ -11,7 +11,8 @@
     "dev:all": "concurrently -n \"API,WEB\" -c \"magenta,cyan\" \"npm:api\" \"npm:dev:host\"",
     "build": "vite build",
     "preview": "vite preview --host",
-    "seed": "node server/reset-db.js"
+    "seed": "node server/reset-db.js",
+    "seed:build": "node server/build-seed.js"
   },
   "dependencies": {
     "lucide-react": "^1.47.0",

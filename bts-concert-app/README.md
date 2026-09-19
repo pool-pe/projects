@@ -1,8 +1,11 @@
-# 🎤 ARMY Pass — Clon de app de conciertos (BTS World Tour 2026 · Lima)
+# 🎤 ARMY Pass — Clon de app de conciertos (BTS WORLD TOUR 'ARIRANG' · Lima)
 
 Aplicación web moderna, responsive y con modo oscuro que simula la app oficial de un
-concierto: login, entrada digital con **código QR dinámico**, guía del día del show y
-sección de perfil.
+concierto: login, pantalla **Mis Entradas** replicada de la app original, entrada digital
+con **código QR dinámico**, guía del día del show y sección de perfil.
+
+Evento de la demo: **BTS WORLD TOUR 'ARIRANG'** — Estadio San Marcos, Lima
+(miércoles 7 de octubre de 2026, 20:00 h · 4 entradas).
 
 > **Stack:** React 19 + Vite 8 + Tailwind CSS 4 + lucide-react + React Router 7 ·
 > Backend opcional en Node.js/Express 5 con base de datos JSON.
@@ -104,6 +107,7 @@ npm run dev -- --host
 | `npm run build` | Compila a producción en `dist/` |
 | `npm run preview` | Sirve el build compilado (puerto 4173) |
 | `npm run seed` | Regenera `server/db.json` desde `server/seed.json` |
+| `npm run seed:build` | Regenera `server/seed.json` desde `src/data/mockDb.js` |
 
 ---
 
@@ -232,7 +236,9 @@ bts-concert-app/
 ├── .env.example
 │
 ├── public/
-│   └── favicon.svg
+│   ├── favicon.svg
+│   └── posters/
+│       └── bts-arirang.svg     # Afiche recreado en SVG (sustituible por una imagen)
 │
 ├── src/
 │   ├── main.jsx                # Punto de entrada de React
@@ -260,6 +266,8 @@ bts-concert-app/
 │   │
 │   ├── components/
 │   │   ├── ui/                 # Button, Card, Badge, Modal, Avatar, Skeleton
+│   │   ├── MyTicketsHeader.jsx # Cabecera de "Mis Entradas" (réplica medida)
+│   │   ├── TicketListItem.jsx  # Fila de la lista con afiche (réplica medida)
 │   │   ├── Login.jsx           # Login + registro + social
 │   │   ├── Dashboard.jsx       # Layout privado (header + outlet + bottom nav)
 │   │   ├── Header.jsx          # Avatar, saludo, notificaciones, cerrar sesión
@@ -278,14 +286,16 @@ bts-concert-app/
 │   └── pages/
 │       ├── LoginPage.jsx
 │       ├── HomePage.jsx        # Vista principal
-│       ├── TicketsPage.jsx     # Mis tickets + historial
+│       ├── TicketsPage.jsx     # "Mis Entradas": réplica de la app original
+│       ├── TicketGroupPage.jsx # Detalle de la función con los 4 QR
 │       ├── ProfilePage.jsx     # Cuenta y preferencias
 │       └── NotFoundPage.jsx
 │
 └── server/                     # API mock (opcional)
     ├── index.js                # Servidor Express
     ├── db.js                   # Lectura/escritura JSON + scrypt + sesiones
-    ├── seed.json               # Datos semilla
+    ├── seed.json               # Datos semilla (generado desde src/data/mockDb.js)
+    ├── build-seed.js           # npm run seed:build
     ├── reset-db.js             # npm run seed
     ├── middleware/auth.js      # Verificación del token Bearer
     └── routes/
@@ -424,8 +434,15 @@ la comparación usa `timingSafeEqual`; y el hash jamás sale en las respuestas.
 | Colores de marca | `src/index.css` → bloque `@theme` (`--color-brand-*`, `--color-accent-*`) |
 | Usuario demo y su contraseña | `src/data/mockDb.js` → `DEMO_USER` y `server/seed.json` → `users[0]` |
 | Cada cuánto rota el QR | `src/components/QrTicket.jsx` → `useRotatingToken(ticket.id, 30)` |
+| Afiche del evento | Deja tu imagen en `public/posters/` y apunta `poster` de `FEATURED_EVENT` a ella (ej. `/posters/mi-afiche.jpg`) |
+| Medidas de la pantalla "Mis Entradas" | `src/components/MyTicketsHeader.jsx` y `src/components/TicketListItem.jsx` (los comentarios indican de dónde sale cada valor) |
 
-Tras editar `server/seed.json`, ejecuta `npm run seed` para regenerar la base de datos.
+La fuente de verdad de los datos es `src/data/mockDb.js`. Tras editarlo:
+
+```bash
+npm run seed:build   # regenera server/seed.json desde mockDb.js
+npm run seed         # regenera server/db.json desde seed.json
+```
 
 > La cuenta regresiva usa la fecha real del sistema. Si pones una fecha pasada, el
 > banner muestra “¡El show ya comenzó!” en lugar del contador.
@@ -485,3 +502,6 @@ Proyecto **educativo y de demostración**. No está afiliado, patrocinado ni ava
 BIGHIT MUSIC, HYBE, BTS ni por ninguna ticketera. Todos los datos (evento, entradas,
 precios, usuarios) son ficticios. Los nombres y marcas mencionados pertenecen a sus
 respectivos titulares.
+
+El afiche de `public/posters/bts-arirang.svg` es una **recreación propia en SVG** hecha
+para la demo: no se incluye ninguna imagen promocional con derechos de autor.

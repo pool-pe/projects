@@ -23,7 +23,7 @@ import ThemeToggle from './ThemeToggle.jsx'
  */
 export function Header() {
   const { user, logout } = useAuth()
-  const { notifications, unreadCount, markNotificationsRead, backendOnline } = useData()
+  const { notifications, unreadCount, markNotificationsRead, backendOnline, event } = useData()
   const toast = useToast()
 
   const [openPanel, setOpenPanel] = useState(null) // 'bell' | 'user' | null
@@ -53,7 +53,9 @@ export function Header() {
   function handleLogout() {
     setOpenPanel(null)
     logout()
-    toast.info('Sesión cerrada', { description: '¡Nos vemos en el Estadio Nacional!' })
+    toast.info('Sesión cerrada', {
+      description: `¡Nos vemos en el ${event?.venue ?? 'concierto'}!`,
+    })
   }
 
   function toggle(panel) {

@@ -16,33 +16,46 @@
 @theme {
   --font-display: 'Outfit', ui-sans-serif, system-ui, sans-serif;
   --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* Tipografía del sistema Android (Roboto): la que usa la app original.
+     Se aplica en las pantallas que son réplica exacta. */
+  --font-native: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-  /* Morado ARMY (color principal de marca) */
-  --color-brand-50: #f6f2ff;
-  --color-brand-100: #ece4ff;
-  --color-brand-200: #dacdff;
-  --color-brand-300: #c0a7ff;
-  --color-brand-400: #a177fc;
-  --color-brand-500: #854df5;
-  --color-brand-600: #742ee8;
-  --color-brand-700: #631fcc;
-  --color-brand-800: #531ca6;
-  --color-brand-900: #451a85;
-  --color-brand-950: #2a0d5a;
+  /* Teal de marca (muestreado de la app real: #4ec5cb en "4 entradas") */
+  --color-brand-50: #edfbfb;
+  --color-brand-100: #d2f5f7;
+  --color-brand-200: #a8ebef;
+  --color-brand-300: #74dce3;
+  --color-brand-400: #4ec5cb;
+  --color-brand-500: #2fb0b8;
+  --color-brand-600: #1e8e99;
+  --color-brand-700: #1c717b;
+  --color-brand-800: #1b5b64;
+  --color-brand-900: #1a4b53;
+  --color-brand-950: #0b2f36;
 
-  /* Acento fucsia/magenta para degradados y estados destacados */
-  --color-accent-300: #ffb3de;
-  --color-accent-400: #ff7ac6;
-  --color-accent-500: #ee3ba3;
-  --color-accent-600: #d61f8f;
+  /* Acento cian para degradados y estados destacados */
+  --color-accent-300: #9fe7ef;
+  --color-accent-400: #5ddbe4;
+  --color-accent-500: #22c6d2;
+  --color-accent-600: #0ea5b3;
 
-  /* Superficies del modo oscuro (violeta muy desaturado, no gris puro) */
-  --color-ink-50: #f7f5fb;
-  --color-ink-100: #eeeaf6;
-  --color-ink-700: #241c36;
-  --color-ink-800: #191228;
-  --color-ink-900: #120c1e;
-  --color-ink-950: #0b0713;
+  /* Superficies oscuras (muestreadas pixel a pixel de la captura) */
+  --color-ink-50: #f4f8fa;
+  --color-ink-100: #dbe3e8;
+  --color-ink-700: #263038;
+  --color-ink-800: #1b242c;
+  --color-ink-900: #182022; /* tarjetas y botones del header */
+  --color-ink-950: #101922; /* fondo de la pantalla */
+
+  /* Tokens exactos de la pantalla "Mis Entradas" */
+  --color-app-bg: #101922;
+  --color-app-surface: #182022;
+  --color-app-track: #081410;
+  --color-app-line: #1b2327;
+  --color-app-icon: #98a1a3;
+  --color-app-muted: #8b9296;
+  --color-app-soft: #9aa1a6;
+  --color-app-teal: #4ec5cb;
 
   --shadow-glow: 0 0 45px -12px var(--color-brand-500);
   --radius-card: 1.25rem;
