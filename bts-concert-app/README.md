@@ -109,6 +109,24 @@ npm run dev -- --host
 | `npm run seed` | Regenera `server/db.json` desde `server/seed.json` |
 | `npm run seed:build` | Regenera `server/seed.json` desde `src/data/mockDb.js` |
 
+### Publicar un build estático
+
+Para subir la app a un hosting estático (GitHub Pages, Netlify, un visor con
+sandbox…) donde no hay servidor que reescriba las rutas:
+
+```bash
+VITE_ROUTER=hash VITE_PREVIEW=1 npx vite build --base ./ --outDir dist-artifact
+```
+
+- `VITE_ROUTER=hash` cambia las rutas a `/#/tickets`, que funcionan sin
+  configuración del servidor.
+- `VITE_PREVIEW=1` hace que los botones de descarga avisen en vez de no hacer
+  nada, porque muchos visores con sandbox bloquean las descargas.
+- `--base ./` deja las rutas de los assets relativas, para servir la app desde
+  una subcarpeta.
+
+Sin backend, ese build corre en modo demo con los datos de `src/data/mockDb.js`.
+
 ---
 
 ## 4. 📱 Vista previa desde tu celular

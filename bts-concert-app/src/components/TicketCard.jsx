@@ -13,6 +13,7 @@ import { useAuth } from '../context/AuthContext.jsx'
 import { useToast } from '../context/ToastContext.jsx'
 import { cn, formatLongDate, formatMoney, formatTime } from '../lib/format.js'
 import { downloadTicketImage, downloadWalletPass } from '../lib/ticketImage.js'
+import { isStaticPreview } from '../lib/env.js'
 import Badge from './ui/Badge.jsx'
 import Button from './ui/Button.jsx'
 import QrTicket from './QrTicket.jsx'
@@ -32,6 +33,12 @@ export function TicketCard({ ticket, event, compact = false }) {
   if (!ticket || !event) return null
 
   async function handleDownload() {
+    if (isStaticPreview) {
+      toast.info('Descarga no disponible en la vista previa', {
+        description: 'El visor bloquea las descargas. Corre la app en local para guardar el PNG.',
+      })
+      return
+    }
     setDownloading(true)
     try {
       downloadTicketImage({ ticket, event, qrCanvas: qrRef.current, user })
@@ -46,6 +53,12 @@ export function TicketCard({ ticket, event, compact = false }) {
   }
 
   function handleWallet() {
+    if (isStaticPreview) {
+      toast.info('Wallet no disponible en la vista previa', {
+        description: 'El visor bloquea las descargas. Corre la app en local para generar el pase.',
+      })
+      return
+    }
     try {
       downloadWalletPass({ ticket, event })
       toast.success('Pase generado (simulado)', {

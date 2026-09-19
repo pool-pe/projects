@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext.jsx'
 import { DataProvider } from './context/DataContext.jsx'
 import { ThemeProvider } from './context/ThemeContext.jsx'
@@ -11,6 +11,13 @@ import NotFoundPage from './pages/NotFoundPage.jsx'
 import ProfilePage from './pages/ProfilePage.jsx'
 import TicketGroupPage from './pages/TicketGroupPage.jsx'
 import TicketsPage from './pages/TicketsPage.jsx'
+
+/**
+ * En local usamos rutas normales (/tickets). Para publicar el build en un
+ * hosting estático que no reescribe rutas (o bajo una subcarpeta) se compila
+ * con VITE_ROUTER=hash y las rutas pasan a ser /#/tickets.
+ */
+const Router = import.meta.env.VITE_ROUTER === 'hash' ? HashRouter : BrowserRouter
 
 /**
  * Árbol de la aplicación.
@@ -26,7 +33,7 @@ export function App() {
     <ThemeProvider>
       <ToastProvider>
         <AuthProvider>
-          <BrowserRouter>
+          <Router>
             <Routes>
               <Route path="/login" element={<LoginPage />} />
 
@@ -48,7 +55,7 @@ export function App() {
               <Route path="/404" element={<NotFoundPage />} />
               <Route path="*" element={<Navigate to="/404" replace />} />
             </Routes>
-          </BrowserRouter>
+          </Router>
         </AuthProvider>
       </ToastProvider>
     </ThemeProvider>
