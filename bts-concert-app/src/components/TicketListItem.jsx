@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { cn, capitalize } from '../lib/format.js'
+import { resolveAsset } from '../lib/env.js'
 
 /**
  * Fila de la lista "Mis Entradas": afiche a la izquierda y datos a la derecha.
@@ -11,6 +13,7 @@ import { cn, capitalize } from '../lib/format.js'
  */
 export function TicketListItem({ group, onClick }) {
   const { event, count, dateISO } = group
+  const [posterFailed, setPosterFailed] = useState(false)
 
   return (
     <button
@@ -21,13 +24,18 @@ export function TicketListItem({ group, onClick }) {
         'transition-colors duration-150 active:bg-white/[0.06]',
       )}
     >
-      <img
-        src={event.poster ?? '/posters/bts-arirang.svg'}
-        alt={`Afiche de ${event.title}`}
-        width={105}
-        height={99}
-        className="h-full w-[105px] shrink-0 object-cover"
-      />
+      {posterFailed ? (
+        <PosterFallback title={event.title} />
+      ) : (
+        <img
+          src={resolveAsset(event.poster ?? '/posters/bts-arirang.svg')}
+          alt={`Afiche de ${event.title}`}
+          width={105}
+          height={99}
+          onError={() => setPosterFailed(true)}
+          className="h-full w-[105px] shrink-0 object-cover"
+        />
+      )}
 
       <div className="flex min-w-0 flex-1 flex-col justify-center pl-[21px] pr-[26px] pt-[3px]">
         <p className="flex items-baseline gap-[11px] whitespace-nowrap text-[10px] leading-[12px]">
@@ -44,6 +52,23 @@ export function TicketListItem({ group, onClick }) {
         <p className="mt-[4px] truncate text-[13px] leading-[13px] text-app-soft">{event.venue}</p>
       </div>
     </button>
+  )
+}
+
+/** Marcador si el afiche no carga: la lista nunca queda con un hueco roto. */
+function PosterFallback({ title }) {
+  return (
+    <div
+      className="flex h-full w-[105px] shrink-0 flex-col items-center justify-center gap-1 bg-gradient-to-br from-brand-700 via-brand-600 to-accent-600 px-2 text-center"
+      aria-hidden="true"
+    >
+      <span className="text-[9px] font-bold uppercase tracking-widest text-white/70">
+        Afiche
+      </span>
+      <span className="line-clamp-2 text-[11px] font-bold leading-tight text-white">
+        {title}
+      </span>
+    </div>
   )
 }
 
