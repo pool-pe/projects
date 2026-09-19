@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!--
+      viewport-fit=cover + maximum-scale=5 => se ve bien en celulares con notch
+      y el usuario puede seguir haciendo zoom (accesibilidad).
+    -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0b0713" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#faf7ff" media="(prefers-color-scheme: light)" />
+    <meta
+      name="description"
+      content="Entrada digital y guía del concierto BTS World Tour 2026 en el Estadio Nacional de Lima."
+    />
+
+    <!-- Evita el parpadeo de tema claro antes de que React monte (FOUC). -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('bts.theme')
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+          var theme = stored || (prefersDark ? 'dark' : 'light')
+          document.documentElement.classList.toggle('dark', theme === 'dark')
+          document.documentElement.dataset.theme = theme
+        } catch (e) {
+          /* localStorage bloqueado (modo incógnito): se queda con el tema por defecto */
+        }
+      })()
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>ARMY Pass · BTS World Tour 2026 Lima</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

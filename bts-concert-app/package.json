@@ -1,0 +1,35 @@
+{
+  "name": "bts-concert-app",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Clon funcional de app de conciertos (BTS World Tour 2026 - Lima) con React + Vite + Tailwind CSS y API mock en Express.",
+  "scripts": {
+    "dev": "vite",
+    "dev:host": "vite --host",
+    "api": "node server/index.js",
+    "dev:all": "concurrently -n \"API,WEB\" -c \"magenta,cyan\" \"npm:api\" \"npm:dev:host\"",
+    "build": "vite build",
+    "preview": "vite preview --host",
+    "seed": "node server/reset-db.js"
+  },
+  "dependencies": {
+    "lucide-react": "^1.47.0",
+    "qrcode.react": "^4.2.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-router-dom": "^7.18.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@vitejs/plugin-react": "^6.1.1",
+    "concurrently": "^10.0.5",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.3.0"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  }
+}

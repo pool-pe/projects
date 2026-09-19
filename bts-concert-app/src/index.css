@@ -1,0 +1,159 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+   Modo oscuro por CLASE (no por preferencia del sistema).
+   En Tailwind v4 el variant `dark:` usa `prefers-color-scheme` por defecto;
+   con esta línea pasa a depender de la clase `.dark` en <html>, que es lo que
+   controla nuestro ThemeContext.
+--------------------------------------------------------------------------- */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------------------
+   Tokens del sistema de diseño.
+   Todo lo que se declara en @theme genera utilidades automáticamente:
+   --color-brand-500  ->  bg-brand-500 / text-brand-500 / border-brand-500 ...
+--------------------------------------------------------------------------- */
+@theme {
+  --font-display: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Morado ARMY (color principal de marca) */
+  --color-brand-50: #f6f2ff;
+  --color-brand-100: #ece4ff;
+  --color-brand-200: #dacdff;
+  --color-brand-300: #c0a7ff;
+  --color-brand-400: #a177fc;
+  --color-brand-500: #854df5;
+  --color-brand-600: #742ee8;
+  --color-brand-700: #631fcc;
+  --color-brand-800: #531ca6;
+  --color-brand-900: #451a85;
+  --color-brand-950: #2a0d5a;
+
+  /* Acento fucsia/magenta para degradados y estados destacados */
+  --color-accent-300: #ffb3de;
+  --color-accent-400: #ff7ac6;
+  --color-accent-500: #ee3ba3;
+  --color-accent-600: #d61f8f;
+
+  /* Superficies del modo oscuro (violeta muy desaturado, no gris puro) */
+  --color-ink-50: #f7f5fb;
+  --color-ink-100: #eeeaf6;
+  --color-ink-700: #241c36;
+  --color-ink-800: #191228;
+  --color-ink-900: #120c1e;
+  --color-ink-950: #0b0713;
+
+  --shadow-glow: 0 0 45px -12px var(--color-brand-500);
+  --radius-card: 1.25rem;
+
+  /* Entrada de las notificaciones flotantes (clase: animate-toast-in) */
+  --animate-toast-in: toast-in 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  /* Entrada de las vistas al navegar (clase: animate-fade-up) */
+  --animate-fade-up: fade-up 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Estilos base
+--------------------------------------------------------------------------- */
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Evita que iOS reescale el texto al girar el teléfono */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-brand-50 font-sans text-ink-900 antialiased;
+    @apply dark:bg-ink-950 dark:text-ink-50;
+    /* Nada de scroll horizontal en móvil */
+    overflow-x: hidden;
+  }
+
+  /* Barra de scroll discreta y acorde al tema */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-brand-300/60 dark:bg-brand-800/70;
+  }
+
+  /* Foco visible y consistente para navegación por teclado */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-500;
+  }
+
+  /* Respeta a quien pide menos movimiento en su sistema */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Utilidades propias
+--------------------------------------------------------------------------- */
+@utility safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@utility safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* Tarjeta de vidrio esmerilado usada en el header y la navegación inferior */
+@utility glass {
+  @apply border border-white/60 bg-white/75 backdrop-blur-xl;
+  @apply dark:border-white/10 dark:bg-ink-900/75;
+}
+
+/* Texto con degradado de marca */
+@utility text-gradient {
+  @apply bg-gradient-to-r from-brand-500 via-accent-400 to-brand-400 bg-clip-text text-transparent;
+}
+
+/* Borde con degradado (se aplica sobre un contenedor con padding 1px) */
+@utility ring-gradient {
+  background-image: linear-gradient(
+    135deg,
+    var(--color-brand-500),
+    var(--color-accent-400),
+    var(--color-brand-400)
+  );
+}
