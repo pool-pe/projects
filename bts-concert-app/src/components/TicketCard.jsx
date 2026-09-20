@@ -110,7 +110,7 @@ export function TicketCard({ ticket, event, compact = false }) {
               <div className="grid grid-cols-2 gap-3">
                 <DataItem icon={MapPin} label="Zona" value={ticket.zone} highlight />
                 <DataItem icon={DoorOpen} label="Puerta" value={ticket.gate} highlight />
-                <DataItem icon={Sofa} label="Sector" value={ticket.sector} />
+                <DataItem icon={Sofa} label="Sector" value={ticket.section} />
                 <DataItem icon={BadgeCheck} label="Asiento" value={ticket.seat} />
               </div>
 

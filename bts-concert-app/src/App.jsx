@@ -9,8 +9,11 @@ import HomePage from './pages/HomePage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 import ProfilePage from './pages/ProfilePage.jsx'
-import TicketGroupPage from './pages/TicketGroupPage.jsx'
+import TicketDetailPage from './pages/TicketDetailPage.jsx'
 import TicketsPage from './pages/TicketsPage.jsx'
+import TransferEmailPage from './pages/TransferEmailPage.jsx'
+import TransferMethodPage from './pages/TransferMethodPage.jsx'
+import TransferSelectPage from './pages/TransferSelectPage.jsx'
 
 /**
  * En local usamos rutas normales (/tickets). Para publicar el build en un
@@ -48,7 +51,19 @@ export function App() {
               >
                 <Route index element={<HomePage />} />
                 <Route path="/tickets" element={<TicketsPage />} />
-                <Route path="/tickets/:eventId" element={<TicketGroupPage />} />
+                <Route path="/tickets/:eventId" element={<TicketDetailPage />} />
+                <Route
+                  path="/tickets/:eventId/transferir"
+                  element={<TransferSelectPage />}
+                />
+                <Route
+                  path="/tickets/:eventId/transferir/metodo"
+                  element={<TransferMethodPage />}
+                />
+                <Route
+                  path="/tickets/:eventId/transferir/email"
+                  element={<TransferEmailPage />}
+                />
                 <Route path="/perfil" element={<ProfilePage />} />
               </Route>
 

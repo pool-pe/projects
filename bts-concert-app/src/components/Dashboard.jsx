@@ -24,6 +24,9 @@ export function Dashboard() {
   const { loading, error, reload } = useData()
   const { pathname } = useLocation()
   const bare = pathname.startsWith('/tickets')
+  // Las pantallas apiladas (detalle, transferencia) no llevan barra inferior:
+  // se sale de ellas con la flecha de retroceso, igual que en la app original.
+  const pushed = /^\/tickets\/.+/.test(pathname)
 
   let content
   if (error) {
@@ -99,7 +102,7 @@ export function Dashboard() {
         {content}
       </main>
 
-      <BottomNav />
+      {!pushed && <BottomNav />}
     </div>
   )
 }

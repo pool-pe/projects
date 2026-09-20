@@ -18,15 +18,15 @@ export function downloadTicketImage({ ticket, event, qrCanvas, user }) {
 
   /* ---------------------------- Fondo ---------------------------- */
   const bg = ctx.createLinearGradient(0, 0, WIDTH, HEIGHT)
-  bg.addColorStop(0, '#2a0d5a')
-  bg.addColorStop(0.5, '#742ee8')
-  bg.addColorStop(1, '#d61f8f')
+  bg.addColorStop(0, '#0b2f36')
+  bg.addColorStop(0.5, '#1e8e99')
+  bg.addColorStop(1, '#22c6d2')
   ctx.fillStyle = bg
   ctx.fillRect(0, 0, WIDTH, HEIGHT)
 
   // Halos decorativos
   drawGlow(ctx, 180, 260, 320, 'rgba(255,255,255,0.18)')
-  drawGlow(ctx, 920, 1500, 380, 'rgba(255,122,198,0.25)')
+  drawGlow(ctx, 920, 1500, 380, 'rgba(93,219,228,0.28)')
 
   /* --------------------------- Cabecera --------------------------- */
   ctx.textAlign = 'center'
@@ -57,7 +57,7 @@ export function downloadTicketImage({ ticket, event, qrCanvas, user }) {
   const qrX = (WIDTH - qrSize) / 2
   const qrY = cardY + 70
 
-  ctx.fillStyle = '#f6f2ff'
+  ctx.fillStyle = '#edfbfb'
   roundRect(ctx, qrX - 26, qrY - 26, qrSize + 52, qrSize + 52, 36)
   ctx.fill()
 
@@ -67,13 +67,13 @@ export function downloadTicketImage({ ticket, event, qrCanvas, user }) {
     ctx.imageSmoothingEnabled = true
   }
 
-  ctx.fillStyle = '#631fcc'
+  ctx.fillStyle = '#1c717b'
   ctx.font = '700 30px Inter, sans-serif'
   ctx.fillText(ticket.id, WIDTH / 2, qrY + qrSize + 78)
 
   /* ------------------------ Línea perforada ------------------------ */
   const dashY = qrY + qrSize + 122
-  ctx.strokeStyle = '#dacdff'
+  ctx.strokeStyle = '#a8ebef'
   ctx.lineWidth = 4
   ctx.setLineDash([16, 16])
   ctx.beginPath()
@@ -83,16 +83,16 @@ export function downloadTicketImage({ ticket, event, qrCanvas, user }) {
   ctx.setLineDash([])
 
   // Muescas laterales (efecto ticket)
-  ctx.fillStyle = '#742ee8'
+  ctx.fillStyle = '#1e8e99'
   circle(ctx, cardX, dashY, 32)
   circle(ctx, cardX + cardW, dashY, 32)
 
   /* --------------------------- Detalles --------------------------- */
   const rows = [
     ['TITULAR', ticket.holderName || user?.fullName || '—'],
-    ['ZONA', ticket.zone],
+    ['TARIFA', `${ticket.fare} - S/ ${ticket.price}`],
     ['PUERTA DE INGRESO', ticket.gate],
-    ['SECTOR / ASIENTO', `${ticket.sector} · ${ticket.seat}`],
+    ['SECCIÓN / FILA', `${ticket.section} · ${ticket.row}`],
     ['FECHA', formatLongDate(event.dateISO)],
     ['HORA', `Puertas ${formatTime(event.doorsOpenISO)} · Show ${formatTime(event.dateISO)}`],
     ['RECINTO', `${event.venue} — ${event.venueAddress}`],
@@ -108,11 +108,11 @@ export function downloadTicketImage({ ticket, event, qrCanvas, user }) {
   rows.forEach(([label, value], index) => {
     const y = rowsTop + index * rowGap
 
-    ctx.fillStyle = '#8b7aa8'
+    ctx.fillStyle = '#7f9295'
     ctx.font = '700 22px Inter, sans-serif'
     ctx.fillText(label, textX, y)
 
-    ctx.fillStyle = '#120c1e'
+    ctx.fillStyle = '#101922'
     ctx.font = '700 32px Outfit, Inter, sans-serif'
     ctx.fillText(truncate(ctx, value, maxTextWidth), textX, y + 40)
   })

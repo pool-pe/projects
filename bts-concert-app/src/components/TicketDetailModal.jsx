@@ -24,7 +24,7 @@ export function TicketDetailModal({ open, onClose, ticket, event }) {
     { icon: Hash, label: 'Código de entrada', value: ticket.id, mono: true },
     { icon: MapPin, label: 'Zona', value: ticket.zone },
     { icon: DoorOpen, label: 'Puerta de ingreso', value: ticket.gate },
-    { icon: Sofa, label: 'Sector', value: ticket.sector },
+    { icon: Sofa, label: 'Sector', value: ticket.section },
     { icon: TicketIcon, label: 'Asiento', value: `${ticket.row} · ${ticket.seat}` },
     { icon: CalendarDays, label: 'Fecha', value: formatLongDate(event.dateISO) },
     {
