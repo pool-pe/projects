@@ -38,7 +38,8 @@
       "showTimeLabel": "20:00 h",
       "doorsLabel": "18:00 h",
       "capacity": 40000,
-      "poster": "/posters/bts-arirang.svg",
+      "poster": "/posters/bts-arirang.jpg",
+      "posterAspect": "768 / 1080",
       "lineup": [
         "RM",
         "Jin",

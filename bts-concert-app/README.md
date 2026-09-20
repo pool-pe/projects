@@ -262,7 +262,7 @@ bts-concert-app/
 ├── public/
 │   ├── favicon.svg
 │   └── posters/
-│       └── bts-arirang.svg     # Afiche: foto real embebida + tipografía vectorial
+│       └── bts-arirang.jpg     # Afiche oficial del evento (768x1080)
 │
 ├── src/
 │   ├── main.jsx                # Punto de entrada de React
@@ -520,7 +520,10 @@ BIGHIT MUSIC, HYBE, BTS ni por ninguna ticketera. Todos los datos (evento, entra
 precios, usuarios) son ficticios. Los nombres y marcas mencionados pertenecen a sus
 respectivos titulares.
 
-El afiche de `public/posters/bts-arirang.svg` combina la foto real (recortada de una
-captura de pantalla y embebida) con el título y las fechas redibujados en vectorial,
-para que se vea nítido a cualquier tamaño. La foto es material promocional de terceros:
-si vas a publicar este proyecto, reemplázala por una imagen propia o con licencia.
+El afiche de `public/posters/bts-arirang.jpg` es material promocional de terceros: si
+vas a publicar este proyecto, reemplázalo por una imagen propia o con licencia.
+
+Nota sobre cómo se muestra: el afiche es vertical (768×1080) y la app original lo
+encaja en un bloque apaisado de proporción 284:266, comprimiéndolo. La réplica hace lo
+mismo (`object-fill`). Para verlo sin deformar, en `TicketPassCard.jsx` quita
+`aspect-[284/266] object-fill` y deja solo `w-full`.
