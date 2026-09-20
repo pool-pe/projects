@@ -22,13 +22,12 @@ export const TicketPassCard = forwardRef(function TicketPassCard(
       aria-label={`Entrada ${ticket.id}`}
     >
       {/* Afiche */}
-      {/* El afiche se muestra en su proporción real (vertical), sin deformar.
-          Se limita su alto para que el QR y los datos entren en pantalla; como
-          la tarjeta es blanca, los márgenes laterales no se notan. */}
+      {/* El afiche ocupa todo el ancho de la tarjeta y conserva su proporción
+          real (768 x 1080), sin deformarse ni dejar márgenes laterales. */}
       <img
         src={resolveAsset(event.poster)}
         alt={`Afiche de ${event.title}`}
-        className="mx-auto block max-h-[46vh] w-full object-contain"
+        className="block w-full"
       />
 
       {/* Banda con la fecha y la política de compra */}
