@@ -17,15 +17,20 @@ const DB_PATH = path.join(__dirname, 'db.json')
 const SEED_PATH = path.join(__dirname, 'seed.json')
 
 let cache = null
+let cacheMtime = 0
 
 /* ------------------------------- Lectura ------------------------------- */
 
 export function readDb() {
-  if (cache) return cache
-
   if (!fs.existsSync(DB_PATH)) {
     resetDb()
   }
+
+  // Si otro proceso regeneró db.json (npm run seed con el servidor arriba),
+  // la caché en memoria quedaría obsoleta: la invalidamos por fecha de cambio.
+  const mtime = fs.statSync(DB_PATH).mtimeMs
+  if (cache && mtime === cacheMtime) return cache
+  cacheMtime = mtime
 
   try {
     cache = JSON.parse(fs.readFileSync(DB_PATH, 'utf8'))
@@ -41,6 +46,7 @@ export function readDb() {
 export function writeDb(data) {
   cache = data
   fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf8')
+  cacheMtime = fs.statSync(DB_PATH).mtimeMs
   return cache
 }
 
@@ -59,6 +65,7 @@ export function resetDb() {
   seed.sessions = []
   cache = seed
   fs.writeFileSync(DB_PATH, JSON.stringify(seed, null, 2), 'utf8')
+  cacheMtime = fs.statSync(DB_PATH).mtimeMs
   return seed
 }
 

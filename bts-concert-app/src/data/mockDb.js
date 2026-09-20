@@ -27,7 +27,7 @@ export const FEATURED_EVENT = {
   showTimeLabel: '20:00 h',
   doorsLabel: '18:00 h',
   capacity: 40000,
-  poster: '/posters/bts-arirang.svg',
+  poster: '/posters/bts-arirang.jpg',
   lineup: ['RM', 'Jin', 'SUGA', 'j-hope', 'Jimin', 'V', 'Jung Kook'],
   heroTagline: 'El tour mundial aterriza en Lima por tres noches',
   /* Banda bajo el afiche en la pantalla de detalle */
@@ -80,13 +80,13 @@ const COMMON = {
   transferable: true,
   // Campos que muestra la pantalla de detalle
   fare: 'PREVENTA ARMY MEMBERSHIP',
-  section: 'CAMPO ACCESO A',
-  row: 'Sin numerar',
-  seat: '-',
+  section: 'TRIBUNA SUR',
+  row: '12',
   startTimeLabel: '20:00',
   price: 740,
-  zone: 'CAMPO ACCESO A',
-  zoneShort: 'Campo A',
+  zone: 'TRIBUNA SUR',
+  zoneShort: 'Tribuna Sur',
+  gate: 'Puerta 9 — Sur',
 }
 
 export const TICKETS = [
@@ -94,7 +94,7 @@ export const TICKETS = [
     ...COMMON,
     id: 'TCK-2026-SMC-0418',
     holderName: 'Jean Pierre Mescua',
-    gate: 'Puerta 4 — Norte',
+    seat: '101',
     includes: [
       'Acceso preferente al Campo A',
       'Merch pack oficial ARMY',
@@ -106,21 +106,21 @@ export const TICKETS = [
     ...COMMON,
     id: 'TCK-2026-SMC-0419',
     holderName: 'Ana Lucía Rojas',
-    gate: 'Puerta 4 — Norte',
+    seat: '102',
     includes: ['Acceso preferente al Campo A', 'Merch pack oficial ARMY'],
   },
   {
     ...COMMON,
     id: 'TCK-2026-SMC-0420',
     holderName: 'Diego Mescua',
-    gate: 'Puerta 6 — Este',
+    seat: '103',
     includes: ['Acceso preferente al Campo A'],
   },
   {
     ...COMMON,
     id: 'TCK-2026-SMC-0421',
     holderName: 'Camila Vera',
-    gate: 'Puerta 6 — Este',
+    seat: '104',
     includes: ['Acceso preferente al Campo A'],
   },
 ]

@@ -1,11 +1,19 @@
 # 🎤 ARMY Pass — Clon de app de conciertos (BTS WORLD TOUR 'ARIRANG' · Lima)
 
-Aplicación web moderna, responsive y con modo oscuro que simula la app oficial de un
-concierto: login, pantalla **Mis Entradas** replicada de la app original, entrada digital
-con **código QR dinámico**, guía del día del show y sección de perfil.
+Réplica de la sección de entradas de una app de tickets, medida pixel a pixel sobre
+capturas y un video de la app original. La app es **solo eso**: login y entradas.
+
+Pantallas:
+
+1. **Mis Entradas** — lista agrupada por mes con el afiche del evento.
+2. **Detalle de entrada** — carrusel de pases con QR dinámico, banda de fecha y los
+   datos de acceso (tarifa, sección, fila, asiento, hora de inicio).
+3. **Transferencia** — seleccionar entradas → elegir método (Contactos Frecuentes,
+   Quentro ID o Vía E-mail) → confirmar con el correo del destinatario.
 
 Evento de la demo: **BTS WORLD TOUR 'ARIRANG'** — Estadio San Marcos, Lima
-(miércoles 7 de octubre de 2026, 20:00 h · 4 entradas).
+(miércoles 7 de octubre de 2026, 20:00 h · 4 entradas en Tribuna Sur, fila 12,
+asientos 101 a 104).
 
 > **Stack:** React 19 + Vite 8 + Tailwind CSS 4 + lucide-react + React Router 7 ·
 > Backend opcional en Node.js/Express 5 con base de datos JSON.
@@ -115,13 +123,11 @@ Para subir la app a un hosting estático (GitHub Pages, Netlify, un visor con
 sandbox…) donde no hay servidor que reescriba las rutas:
 
 ```bash
-VITE_ROUTER=hash VITE_PREVIEW=1 npx vite build --base ./ --outDir dist-artifact
+VITE_ROUTER=hash npx vite build --base ./ --outDir dist-artifact
 ```
 
 - `VITE_ROUTER=hash` cambia las rutas a `/#/tickets`, que funcionan sin
   configuración del servidor.
-- `VITE_PREVIEW=1` hace que los botones de descarga avisen en vez de no hacer
-  nada, porque muchos visores con sandbox bloquean las descargas.
 - `--base ./` deja las rutas de los assets relativas, para servir la app desde
   una subcarpeta.
 
@@ -256,7 +262,7 @@ bts-concert-app/
 ├── public/
 │   ├── favicon.svg
 │   └── posters/
-│       └── bts-arirang.svg     # Afiche recreado en SVG (sustituible por una imagen)
+│       └── bts-arirang.jpg     # Afiche del evento
 │
 ├── src/
 │   ├── main.jsx                # Punto de entrada de React
@@ -265,48 +271,39 @@ bts-concert-app/
 │   │
 │   ├── context/
 │   │   ├── AuthContext.jsx     # Sesión persistida en localStorage
-│   │   ├── DataContext.jsx     # Evento, entradas, compras, guía
+│   │   ├── DataContext.jsx     # Evento, entradas y notificaciones
 │   │   ├── ThemeContext.jsx    # Modo claro/oscuro por clase .dark
 │   │   └── ToastContext.jsx    # Notificaciones flotantes
 │   │
 │   ├── hooks/
-│   │   ├── useCountdown.js     # Cuenta regresiva al show
-│   │   ├── useLocalStorage.js  # useState persistido
 │   │   └── useRotatingToken.js # Token del QR que rota cada 30 s
 │   │
 │   ├── lib/
 │   │   ├── api.js              # Cliente HTTP con fallback offline
-│   │   ├── format.js           # Fechas, moneda e iniciales en es-PE
-│   │   └── ticketImage.js      # Genera el PNG descargable de la entrada
+│   │   ├── env.js              # resolveAsset(): rutas según el base del build
+│   │   └── format.js           # Fechas, moneda e iniciales en es-PE
 │   │
 │   ├── data/
-│   │   └── mockDb.js           # Datos simulados del frontend
+│   │   └── mockDb.js           # Fuente de verdad de los datos simulados
 │   │
 │   ├── components/
-│   │   ├── ui/                 # Button, Card, Badge, Modal, Avatar, Skeleton
-│   │   ├── MyTicketsHeader.jsx # Cabecera de "Mis Entradas" (réplica medida)
-│   │   ├── TicketListItem.jsx  # Fila de la lista con afiche (réplica medida)
+│   │   ├── ui/                 # Button, Card, Modal
+│   │   ├── AppShell.jsx        # Estados de carga y error de la zona privada
 │   │   ├── Login.jsx           # Login + registro + social
-│   │   ├── Dashboard.jsx       # Layout privado (header + outlet + bottom nav)
-│   │   ├── Header.jsx          # Avatar, saludo, notificaciones, cerrar sesión
-│   │   ├── EventBanner.jsx     # Banner del evento destacado
-│   │   ├── Countdown.jsx       # Días / horas / min / seg
-│   │   ├── TicketCard.jsx      # Entrada confirmada + acciones
-│   │   ├── QrTicket.jsx        # QR dinámico con token rotatorio
-│   │   ├── TicketDetailModal.jsx
-│   │   ├── ConcertGuide.jsx    # Acordeón de la guía del día
-│   │   ├── BottomNav.jsx       # Navegación inferior móvil
-│   │   ├── PurchaseHistory.jsx
-│   │   ├── PreferencesPanel.jsx
+│   │   ├── MyTicketsHeader.jsx # Cabecera de "Mis Entradas" (réplica medida)
+│   │   ├── ScreenHeader.jsx    # Cabecera de las pantallas apiladas
+│   │   ├── TicketListItem.jsx  # Fila de la lista con afiche (réplica medida)
+│   │   ├── TicketPassCard.jsx  # Tarjeta blanca de la entrada con QR
 │   │   ├── ProtectedRoute.jsx
 │   │   └── ThemeToggle.jsx
 │   │
 │   └── pages/
 │       ├── LoginPage.jsx
-│       ├── HomePage.jsx        # Vista principal
-│       ├── TicketsPage.jsx     # "Mis Entradas": réplica de la app original
-│       ├── TicketGroupPage.jsx # Detalle de la función con los 4 QR
-│       ├── ProfilePage.jsx     # Cuenta y preferencias
+│       ├── TicketsPage.jsx         # "Mis Entradas"
+│       ├── TicketDetailPage.jsx    # Detalle con el QR
+│       ├── TransferSelectPage.jsx  # "Seleccionar entradas"
+│       ├── TransferMethodPage.jsx  # "Transferir entrada"
+│       ├── TransferEmailPage.jsx   # "Vía E-mail"
 │       └── NotFoundPage.jsx
 │
 └── server/                     # API mock (opcional)
@@ -448,12 +445,13 @@ la comparación usa `timingSafeEqual`; y el hash jamás sale en las respuestas.
 |---|---|
 | Fecha, hora, recinto o ciudad del evento | `src/data/mockDb.js` → `FEATURED_EVENT` y `server/seed.json` → `events[0]` |
 | Datos de la entrada (zona, puerta, asiento) | `src/data/mockDb.js` → `TICKETS` y `server/seed.json` → `tickets` |
-| Textos de la guía del concierto | `src/data/mockDb.js` → `CONCERT_GUIDE` |
+
 | Colores de marca | `src/index.css` → bloque `@theme` (`--color-brand-*`, `--color-accent-*`) |
 | Usuario demo y su contraseña | `src/data/mockDb.js` → `DEMO_USER` y `server/seed.json` → `users[0]` |
-| Cada cuánto rota el QR | `src/components/QrTicket.jsx` → `useRotatingToken(ticket.id, 30)` |
+| Cada cuánto rota el QR | `src/components/TicketPassCard.jsx` → `useRotatingToken(ticket.id, 30)` |
 | Afiche del evento | Deja tu imagen en `public/posters/` y apunta `poster` de `FEATURED_EVENT` a ella (ej. `/posters/mi-afiche.jpg`) |
-| Medidas de la pantalla "Mis Entradas" | `src/components/MyTicketsHeader.jsx` y `src/components/TicketListItem.jsx` (los comentarios indican de dónde sale cada valor) |
+| Sección, fila y asientos | `src/data/mockDb.js` → `COMMON.section`, `COMMON.row` y el `seat` de cada entrada |
+| Medidas de las pantallas replicadas | `src/components/MyTicketsHeader.jsx`, `TicketListItem.jsx` y `TicketPassCard.jsx` (los comentarios indican de dónde sale cada valor) |
 
 La fuente de verdad de los datos es `src/data/mockDb.js`. Tras editarlo:
 
@@ -521,5 +519,6 @@ BIGHIT MUSIC, HYBE, BTS ni por ninguna ticketera. Todos los datos (evento, entra
 precios, usuarios) son ficticios. Los nombres y marcas mencionados pertenecen a sus
 respectivos titulares.
 
-El afiche de `public/posters/bts-arirang.svg` es una **recreación propia en SVG** hecha
-para la demo: no se incluye ninguna imagen promocional con derechos de autor.
+El afiche de `public/posters/bts-arirang.jpg` se recortó de una captura de pantalla
+para que la demo se vea como la app real. Es material promocional de terceros: si vas
+a publicar este proyecto, reemplázalo por una imagen propia o con licencia.

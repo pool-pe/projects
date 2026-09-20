@@ -3,12 +3,10 @@ import { AuthProvider } from './context/AuthContext.jsx'
 import { DataProvider } from './context/DataContext.jsx'
 import { ThemeProvider } from './context/ThemeContext.jsx'
 import { ToastProvider } from './context/ToastContext.jsx'
-import Dashboard from './components/Dashboard.jsx'
+import AppShell from './components/AppShell.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
-import HomePage from './pages/HomePage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
-import ProfilePage from './pages/ProfilePage.jsx'
 import TicketDetailPage from './pages/TicketDetailPage.jsx'
 import TicketsPage from './pages/TicketsPage.jsx'
 import TransferEmailPage from './pages/TransferEmailPage.jsx'
@@ -28,8 +26,10 @@ const Router = import.meta.env.VITE_ROUTER === 'hash' ? HashRouter : BrowserRout
  *  ThemeProvider   -> modo claro/oscuro
  *    ToastProvider -> notificaciones flotantes
  *      AuthProvider-> sesión persistida en localStorage
- *        Router    -> rutas públicas (/login) y privadas (/, /tickets, /perfil)
+ *        Router    -> ruta pública (/login) y privadas (/tickets/...)
  *          DataProvider -> datos del evento y entradas (solo tras autenticarse)
+ *
+ * La app se reduce a la sección de entradas: no hay Inicio ni Perfil.
  */
 export function App() {
   return (
@@ -44,12 +44,12 @@ export function App() {
                 element={
                   <ProtectedRoute>
                     <DataProvider>
-                      <Dashboard />
+                      <AppShell />
                     </DataProvider>
                   </ProtectedRoute>
                 }
               >
-                <Route index element={<HomePage />} />
+                <Route index element={<Navigate to="/tickets" replace />} />
                 <Route path="/tickets" element={<TicketsPage />} />
                 <Route path="/tickets/:eventId" element={<TicketDetailPage />} />
                 <Route
@@ -64,7 +64,6 @@ export function App() {
                   path="/tickets/:eventId/transferir/email"
                   element={<TransferEmailPage />}
                 />
-                <Route path="/perfil" element={<ProfilePage />} />
               </Route>
 
               <Route path="/404" element={<NotFoundPage />} />

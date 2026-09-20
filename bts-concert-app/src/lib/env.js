@@ -1,14 +1,6 @@
 /**
- * Banderas de entorno y resolución de rutas de assets.
+ * Resolución de rutas de assets según el `base` del build.
  */
-
-/**
- * `VITE_PREVIEW=1` marca el build que se publica como vista previa online
- * (hosting estático dentro de un visor con sandbox). Ahí el navegador bloquea
- * las descargas que inicia la página, así que la UI lo avisa en lugar de
- * quedarse sin hacer nada.
- */
-export const isStaticPreview = import.meta.env.VITE_PREVIEW === '1'
 
 /**
  * Convierte una ruta de `public/` en una URL válida para el `base` del build.
@@ -28,4 +20,4 @@ export function resolveAsset(path) {
   return `${base.replace(/\/+$/, '')}/${path.replace(/^\/+/, '')}`
 }
 
-export default isStaticPreview
+export default resolveAsset
