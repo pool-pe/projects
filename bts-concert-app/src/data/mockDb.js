@@ -85,7 +85,7 @@ const COMMON = {
   section: 'TRIBUNA SUR',
   row: '12',
   startTimeLabel: '20:00',
-  price: 740,
+  price: 483,
   zone: 'TRIBUNA SUR',
   zoneShort: 'Tribuna Sur',
   gate: 'Puerta 9 — Sur',
@@ -98,10 +98,9 @@ export const TICKETS = [
     holderName: 'Jean Pierre Mescua',
     seat: '101',
     includes: [
-      'Acceso preferente al Campo A',
+      'Acceso por Puerta 9 — Sur',
       'Merch pack oficial ARMY',
-      'Ingreso anticipado 17:00 h',
-      'Zona de descanso VIP',
+      'Asiento numerado en Tribuna Sur',
     ],
   },
   {
@@ -109,21 +108,21 @@ export const TICKETS = [
     id: 'TCK-2026-SMC-0419',
     holderName: 'Ana Lucía Rojas',
     seat: '102',
-    includes: ['Acceso preferente al Campo A', 'Merch pack oficial ARMY'],
+    includes: ['Acceso por Puerta 9 — Sur', 'Merch pack oficial ARMY'],
   },
   {
     ...COMMON,
     id: 'TCK-2026-SMC-0420',
     holderName: 'Diego Mescua',
     seat: '103',
-    includes: ['Acceso preferente al Campo A'],
+    includes: ['Acceso por Puerta 9 — Sur'],
   },
   {
     ...COMMON,
     id: 'TCK-2026-SMC-0421',
     holderName: 'Camila Vera',
     seat: '104',
-    includes: ['Acceso preferente al Campo A'],
+    includes: ['Acceso por Puerta 9 — Sur'],
   },
 ]
 
@@ -131,9 +130,9 @@ export const PURCHASES = [
   {
     id: 'ORD-93412-LIM',
     concept: "BTS WORLD TOUR 'ARIRANG' — Lima",
-    detail: '4 entradas — CAMPO ACCESO A (Preventa ARMY Membership)',
+    detail: '4 entradas — Tribuna Sur, fila 12 (Preventa ARMY Membership)',
     date: '2026-03-02T10:24:00-05:00',
-    amount: 2960,
+    amount: 1932,
     currency: 'PEN',
     status: 'PAGADO',
     method: 'Visa •••• 4821',
@@ -183,7 +182,7 @@ export const CONCERT_GUIDE = [
     summary: 'Miércoles 7 de octubre de 2026',
     items: [
       '15:00 h — Apertura de stands de merchandising oficial.',
-      '17:00 h — Ingreso anticipado exclusivo VIP (Campo A).',
+      '17:00 h — Ingreso anticipado para Tribuna Sur.',
       '18:00 h — Apertura general de puertas.',
       '20:00 h — Inicio del show. Las puertas se cierran 21:00 h.',
     ],

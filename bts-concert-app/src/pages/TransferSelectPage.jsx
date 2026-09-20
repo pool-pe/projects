@@ -58,7 +58,7 @@ export function TransferSelectPage() {
                 <img
                   src={resolveAsset(event.poster)}
                   alt=""
-                  className="h-full w-[74px] object-fill"
+                  className="h-full w-[74px] object-cover"
                 />
                 <span className="absolute inset-x-0 bottom-0 bg-app-teal py-[3px] text-center text-[5px] font-bold text-[#0b0b0b]">
                   {event.posterBandDate}

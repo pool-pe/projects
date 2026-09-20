@@ -523,7 +523,6 @@ respectivos titulares.
 El afiche de `public/posters/bts-arirang.jpg` es material promocional de terceros: si
 vas a publicar este proyecto, reemplázalo por una imagen propia o con licencia.
 
-Nota sobre cómo se muestra: el afiche es vertical (768×1080) y la app original lo
-encaja en un bloque apaisado de proporción 284:266, comprimiéndolo. La réplica hace lo
-mismo (`object-fill`). Para verlo sin deformar, en `TicketPassCard.jsx` quita
-`aspect-[284/266] object-fill` y deja solo `w-full`.
+Nota sobre cómo se muestra: el afiche es vertical (768×1080). En el detalle se muestra
+en su proporción real, sin deformar; en las miniaturas de la lista y de la selección se
+recorta al centro (`object-cover`) para que nada se vea ensanchado.

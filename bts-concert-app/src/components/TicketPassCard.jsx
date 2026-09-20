@@ -22,13 +22,11 @@ export const TicketPassCard = forwardRef(function TicketPassCard(
       aria-label={`Entrada ${ticket.id}`}
     >
       {/* Afiche */}
-      {/* La app original encaja el afiche (vertical) en un bloque apaisado de
-          proporción 284:266, comprimiéndolo. Se replica igual con object-fill;
-          para verlo sin deformar, quita aspect/object-fill y deja `w-full`. */}
+      {/* El afiche se muestra en su proporción real (vertical), sin deformar. */}
       <img
         src={resolveAsset(event.poster)}
         alt={`Afiche de ${event.title}`}
-        className="block aspect-[284/266] w-full object-fill"
+        className="block w-full"
       />
 
       {/* Banda con la fecha y la política de compra */}

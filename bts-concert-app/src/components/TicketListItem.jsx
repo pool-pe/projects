@@ -33,7 +33,7 @@ export function TicketListItem({ group, onClick }) {
           width={105}
           height={99}
           onError={() => setPosterFailed(true)}
-          className="h-full w-[105px] shrink-0 object-fill"
+          className="h-full w-[105px] shrink-0 object-cover"
         />
       )}
 
