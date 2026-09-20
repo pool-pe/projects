@@ -12,8 +12,8 @@ Pantallas:
    Quentro ID o Vía E-mail) → confirmar con el correo del destinatario.
 
 Evento de la demo: **BTS WORLD TOUR 'ARIRANG'** — Estadio San Marcos, Lima
-(miércoles 7 de octubre de 2026, 20:00 h · 4 entradas en Tribuna Sur, fila 12,
-asientos 101 a 104).
+(miércoles 7 de octubre de 2026, 20:00 h · 4 entradas en Tribuna Sur, fila 11,
+asientos 27 a 30).
 
 > **Stack:** React 19 + Vite 8 + Tailwind CSS 4 + lucide-react + React Router 7 ·
 > Backend opcional en Node.js/Express 5 con base de datos JSON.

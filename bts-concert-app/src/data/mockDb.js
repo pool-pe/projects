@@ -83,7 +83,7 @@ const COMMON = {
   // Campos que muestra la pantalla de detalle
   fare: 'PREVENTA ARMY MEMBERSHIP',
   section: 'TRIBUNA SUR',
-  row: '12',
+  row: '11',
   startTimeLabel: '20:00',
   price: 483,
   zone: 'TRIBUNA SUR',
@@ -96,7 +96,7 @@ export const TICKETS = [
     ...COMMON,
     id: 'TCK-2026-SMC-0418',
     holderName: 'Jean Pierre Mescua',
-    seat: '101',
+    seat: '27',
     includes: [
       'Acceso por Puerta 9 — Sur',
       'Merch pack oficial ARMY',
@@ -107,21 +107,21 @@ export const TICKETS = [
     ...COMMON,
     id: 'TCK-2026-SMC-0419',
     holderName: 'Ana Lucía Rojas',
-    seat: '102',
+    seat: '28',
     includes: ['Acceso por Puerta 9 — Sur', 'Merch pack oficial ARMY'],
   },
   {
     ...COMMON,
     id: 'TCK-2026-SMC-0420',
     holderName: 'Diego Mescua',
-    seat: '103',
+    seat: '29',
     includes: ['Acceso por Puerta 9 — Sur'],
   },
   {
     ...COMMON,
     id: 'TCK-2026-SMC-0421',
     holderName: 'Camila Vera',
-    seat: '104',
+    seat: '30',
     includes: ['Acceso por Puerta 9 — Sur'],
   },
 ]
@@ -130,7 +130,7 @@ export const PURCHASES = [
   {
     id: 'ORD-93412-LIM',
     concept: "BTS WORLD TOUR 'ARIRANG' — Lima",
-    detail: '4 entradas — Tribuna Sur, fila 12 (Preventa ARMY Membership)',
+    detail: '4 entradas — Tribuna Sur, fila 11 (Preventa ARMY Membership)',
     date: '2026-03-02T10:24:00-05:00',
     amount: 1932,
     currency: 'PEN',
