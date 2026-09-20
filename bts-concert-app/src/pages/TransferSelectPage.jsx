@@ -23,7 +23,8 @@ export function TransferSelectPage() {
     return owned.length > 0 ? owned : tickets
   }, [tickets, event, eventId])
 
-  const [selected, setSelected] = useState(() => new Set(list[0] ? [list[0].id] : []))
+  // Por defecto van todas seleccionadas: lo normal es transferir la compra entera.
+  const [selected, setSelected] = useState(() => new Set(list.map((t) => t.id)))
 
   if (!event || list.length === 0) return null
 

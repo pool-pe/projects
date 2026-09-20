@@ -15,7 +15,7 @@ import TicketListItem, {
  * Próximos/Pasados, encabezado de mes y la fila del evento con su afiche.
  */
 export function TicketsPage() {
-  const { tickets, event } = useData()
+  const { tickets, event, transferredCount, restoreTickets } = useData()
   const navigate = useNavigate()
   const [tab, setTab] = useState('proximos')
 
@@ -46,7 +46,11 @@ export function TicketsPage() {
 
       <div className="px-4 pb-28">
         {months.length === 0 ? (
-          <EmptyState tab={tab} />
+          <EmptyState
+            tab={tab}
+            transferredCount={transferredCount}
+            onRestore={restoreTickets}
+          />
         ) : (
           months.map(({ month, year, groups: monthGroups }) => (
             <section key={`${month}-${year}`}>
@@ -72,7 +76,9 @@ export function TicketsPage() {
   )
 }
 
-function EmptyState({ tab }) {
+function EmptyState({ tab, transferredCount = 0, onRestore }) {
+  const transferidas = tab !== 'pasados' && transferredCount > 0
+
   return (
     <div className="flex flex-col items-center justify-center pt-24 text-center">
       <TicketX className="size-10 text-app-icon/60" aria-hidden="true" />
@@ -80,8 +86,20 @@ function EmptyState({ tab }) {
         {tab === 'pasados' ? 'No tienes entradas pasadas' : 'No tienes entradas próximas'}
       </p>
       <p className="mt-1 text-[13px] text-app-muted">
-        Cuando compres una, aparecerá aquí.
+        {transferidas
+          ? `Transferiste ${transferredCount} ${transferredCount === 1 ? 'entrada' : 'entradas'}.`
+          : 'Cuando compres una, aparecerá aquí.'}
       </p>
+
+      {transferidas && (
+        <button
+          type="button"
+          onClick={onRestore}
+          className="mt-8 text-[12px] font-medium text-app-teal underline-offset-4 active:opacity-60"
+        >
+          Deshacer la transferencia (demo)
+        </button>
+      )}
     </div>
   )
 }

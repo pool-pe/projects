@@ -262,7 +262,7 @@ bts-concert-app/
 ├── public/
 │   ├── favicon.svg
 │   └── posters/
-│       └── bts-arirang.jpg     # Afiche del evento
+│       └── bts-arirang.svg     # Afiche: foto real embebida + tipografía vectorial
 │
 ├── src/
 │   ├── main.jsx                # Punto de entrada de React
@@ -451,6 +451,7 @@ la comparación usa `timingSafeEqual`; y el hash jamás sale en las respuestas.
 | Cada cuánto rota el QR | `src/components/TicketPassCard.jsx` → `useRotatingToken(ticket.id, 30)` |
 | Afiche del evento | Deja tu imagen en `public/posters/` y apunta `poster` de `FEATURED_EVENT` a ella (ej. `/posters/mi-afiche.jpg`) |
 | Sección, fila y asientos | `src/data/mockDb.js` → `COMMON.section`, `COMMON.row` y el `seat` de cada entrada |
+| Entradas transferidas | Se guardan en `localStorage` bajo `bts.transferred`; el enlace "Deshacer la transferencia" de la lista vacía las devuelve |
 | Medidas de las pantallas replicadas | `src/components/MyTicketsHeader.jsx`, `TicketListItem.jsx` y `TicketPassCard.jsx` (los comentarios indican de dónde sale cada valor) |
 
 La fuente de verdad de los datos es `src/data/mockDb.js`. Tras editarlo:
@@ -519,6 +520,7 @@ BIGHIT MUSIC, HYBE, BTS ni por ninguna ticketera. Todos los datos (evento, entra
 precios, usuarios) son ficticios. Los nombres y marcas mencionados pertenecen a sus
 respectivos titulares.
 
-El afiche de `public/posters/bts-arirang.jpg` se recortó de una captura de pantalla
-para que la demo se vea como la app real. Es material promocional de terceros: si vas
-a publicar este proyecto, reemplázalo por una imagen propia o con licencia.
+El afiche de `public/posters/bts-arirang.svg` combina la foto real (recortada de una
+captura de pantalla y embebida) con el título y las fechas redibujados en vectorial,
+para que se vea nítido a cualquier tamaño. La foto es material promocional de terceros:
+si vas a publicar este proyecto, reemplázala por una imagen propia o con licencia.

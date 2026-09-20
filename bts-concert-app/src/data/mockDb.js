@@ -27,7 +27,7 @@ export const FEATURED_EVENT = {
   showTimeLabel: '20:00 h',
   doorsLabel: '18:00 h',
   capacity: 40000,
-  poster: '/posters/bts-arirang.jpg',
+  poster: '/posters/bts-arirang.svg',
   lineup: ['RM', 'Jin', 'SUGA', 'j-hope', 'Jimin', 'V', 'Jung Kook'],
   heroTagline: 'El tour mundial aterriza en Lima por tres noches',
   /* Banda bajo el afiche en la pantalla de detalle */

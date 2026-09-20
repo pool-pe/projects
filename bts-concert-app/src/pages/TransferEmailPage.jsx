@@ -16,9 +16,13 @@ export function TransferEmailPage() {
   const navigate = useNavigate()
   const location = useLocation()
   const toast = useToast()
-  const { event } = useData()
+  const { event, tickets, transferTickets } = useData()
 
-  const ticketIds = location.state?.ticketIds ?? []
+  // Si se entra directo a la URL sin pasar por la selección, se transfiere todo.
+  const ticketIds =
+    location.state?.ticketIds?.length > 0
+      ? location.state.ticketIds
+      : tickets.map((t) => t.id)
   const [email, setEmail] = useState('')
   const [sending, setSending] = useState(false)
 
@@ -30,11 +34,12 @@ export function TransferEmailPage() {
     setSending(true)
     // La transferencia es simulada: no hay servicio real de envío.
     await new Promise((resolve) => setTimeout(resolve, 900))
+    transferTickets(ticketIds)
     setSending(false)
     toast.success('Transferencia enviada', {
-      description: `${ticketIds.length || 1} entrada(s) enviada(s) a ${email.trim()}.`,
+      description: `${ticketIds.length} ${ticketIds.length === 1 ? 'entrada' : 'entradas'} a ${email.trim()}.`,
     })
-    navigate(`/tickets/${event.id}`, { replace: true })
+    navigate('/tickets', { replace: true })
   }
 
   return (
@@ -75,8 +80,14 @@ export function TransferEmailPage() {
         </button>
 
         <p className="mt-6 text-[11px] leading-relaxed text-app-muted">
-          El destinatario recibirá un correo para reclamar la entrada con su cuenta de
-          Quentro. En esta demo la transferencia es simulada.
+          {ticketIds.length > 0 && (
+            <>
+              Se transferirán {ticketIds.length}{' '}
+              {ticketIds.length === 1 ? 'entrada' : 'entradas'} y dejarán de aparecer en
+              tu cuenta.{' '}
+            </>
+          )}
+          El destinatario recibirá un correo para reclamarlas con su cuenta de Quentro.
         </p>
       </div>
     </div>
